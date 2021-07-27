@@ -1,0 +1,125 @@
+package com.company;
+
+import sorting.*;
+
+import javax.swing.*;
+import java.awt.*;
+
+import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
+
+@Author(name = "Saurabh Khule", date = "June 07 2021")
+public class Main {
+    public static String length;
+    private JFrame frame;
+
+    private Main() {
+        JPanel panel;
+        JButton q, w, e, r, t, y;
+        frame = new JFrame();
+        frame.setSize(510, 390);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLocationRelativeTo(null);
+
+        panel = new JPanel();
+        panel.setLayout(null);
+        panel.setBackground(Color.WHITE);
+
+        q = new JButton("Bubble");
+        w = new JButton("Selection");
+        e = new JButton("Insertion");
+        r = new JButton("Quick");
+        t = new JButton("Merge");
+        y = new JButton("Heap");
+
+        q.setBounds(100, 50, 100, 50);
+        w.setBounds(100, 150, 100, 50);
+        e.setBounds(300, 50, 100, 50);
+        r.setBounds(300, 150, 100, 50);
+        t.setBounds(190, 250, 100, 50);
+
+        q.addActionListener(v -> {
+            Sorting.count = 0;
+            MyPanel p = new MyPanel();
+            Sorting.values = Sorting.returnArray();
+            BubbleSort sorter = new BubbleSort(Sorting.values);
+            p.setSorter(sorter);
+            frame = returnFrame(p);
+            sorter.sort();
+        });
+
+        w.addActionListener(v -> {
+            Sorting.count = 0;
+            MyPanel p = new MyPanel();
+            Sorting.values = Sorting.returnArray();
+            SelectionSort sorter = new SelectionSort(Sorting.values);
+            p.setSorter(sorter);
+            frame = returnFrame(p);
+            sorter.sort();
+        });
+
+        e.addActionListener(v -> {
+            Sorting.count = 0;
+            MyPanel p = new MyPanel();
+            Sorting.values = Sorting.returnArray();
+            InsertionSort sorter = new InsertionSort(Sorting.values);
+            p.setSorter(sorter);
+            frame = returnFrame(p);
+            sorter.sort();
+        });
+
+        r.addActionListener(v -> {
+            Sorting.count = 0;
+            MyPanel p = new MyPanel();
+            Sorting.values = Sorting.returnArray();
+            QuickSort sorter = new QuickSort(Sorting.values);
+            p.setSorter(sorter);
+            frame = returnFrame(p);
+            sorter.sort();
+        });
+
+        t.addActionListener(v -> {
+            Sorting.count = 0;
+            MyPanel p = new MyPanel();
+            Sorting.values = Sorting.returnArray();
+            MergeSort sorter = new MergeSort(Sorting.values);
+            p.setSorter(sorter);
+            frame = returnFrame(p);
+            sorter.sort();
+        });
+
+        panel.add(q);
+        panel.add(w);
+        panel.add(e);
+        panel.add(r);
+        panel.add(t);
+        panel.add(y);
+        panel.setBackground(new Color(33, 97, 140));
+        frame.add(panel);
+        frame.setVisible(true);
+        JOptionPane.showMessageDialog(frame, "This is a sorting visualisation created by Saurabh Khule.\n");
+        length = JOptionPane.showInputDialog(frame, "Enter number of array elements[10 - 700].\nDefault elements are 270");
+        try {
+            while (Integer.parseInt(length) > 700 || Integer.parseInt(length) < 0) {
+                JOptionPane.showMessageDialog(frame, "Please choose the number in the given limit!");
+                length = JOptionPane.showInputDialog(frame, "Enter number of array elements[10 - 700].\nDefault elements are 270");
+            }
+        } catch (NumberFormatException p) {
+            p.getStackTrace();
+        }
+    }
+
+    public static void main(String... s) {
+        new Main();
+    }
+
+    private JFrame returnFrame(JPanel panel) {
+        JFrame frame = new JFrame("Sorting");
+        frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        frame.setLayout(new BorderLayout());
+        frame.add(panel);
+        frame.pack();
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+        return frame;
+    }
+}
